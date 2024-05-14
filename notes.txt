@@ -1,0 +1,130 @@
+
+
+new functions: 
+
+					access
+
+prototype 	 : 	int access(const char *path, int mode)
+
+librairie    : 	<unistd.h>
+
+description  :	checks the accessibility of the file named by the path argument for the access permissions indicated by the mode argument.  The value of mode is either the bitwise-inclusive OR of the access permissions
+		    	to be checked (R_OK for read permission, W_OK for write permission, and X_OK for execute/search permission), or the existence test (F_OK).
+
+return value : 	if access is permitted then return 0, otherwise return -1 and errno shall be set to indicate the error.
+
+
+					dup
+
+prototype    :	int dup(int fildes)
+
+librairie	 :	<unistd.h>
+
+description  :	duplicates an existing object descriptor and returns its value to the calling process (fildes2 = dup(fildes)). 
+				The new descriptor returned by the call is the lowest numbered descriptor currently not in use by the process.
+
+return value :	upon successful completion, the new file descriptor is returned.  Otherwise, a value of -1 is returned and errno is set to indicate the error.
+
+					dup2
+
+prototype    :	int dup2(int fildes, int fildes2)
+
+librairie	 :	<unistd.h>
+
+description  :	In dup2(), the value of the new descriptor fildes2 is specified.  If fildes and fildes2 are equal, then dup2() just returns fildes2; no other changes are made to the existing descriptor.  Otherwise, if descriptor fildes2 is
+    			already in use, it is first deallocated as if a close(2) call had been done first.
+
+
+return value :	Upon successful completion, the new file descriptor is returned.  Otherwise, a value of -1 is returned and errno is set to indicate the error.
+
+
+					execve
+
+prototype    :	int execve(const char *path, char *const argv[], char *const envp[])
+
+librairie	 :	<unistd.h>
+
+description  :	transforms the calling process into a new process.  The new process is constructed from an ordinary file, whose name is pointed to by path, called the new process file.  This file is either an executable object file,
+    			or a file of data for an interpreter.
+
+return value :	As the execve() function overlays the current process image  with a new process image, the successful call has no process to return to.  If execve() does return to the calling process, an error has occurred; the return value
+				will be -1 and the global variable errno is set to indicate the error.
+
+
+					fork
+
+prototype    :	pid_t fork(void)
+
+librairie	 :	<unistd.h>
+
+description  :	fork() causes creation of a new process.  The new process (child process) is an exact copy of the calling process (parent process) except for the following:
+
+           		o   The child process has a unique process ID.
+
+	           	o   The child process has a different parent process ID (i.e., the process ID of the parent process).
+
+    	       	o   The child process has its own copy of the parent's descriptors.  These descriptors reference the same underlying objects, so that, for instance, file pointers in file objects are shared between the child and the par-
+        	       ent, so that an lseek(2) on a descriptor in the child process can affect a subsequent read or write by the parent.  This descriptor copying is also used by the shell to establish standard input and output for newly
+            	   created processes as well as to set up pipes.
+
+return value :	Upon successful completion, fork() returns a value of 0 to the child process and returns the process ID of the child process to the parent process.  Otherwise, a value of -1 is returned to the parent process, no child process
+    			is created, and the global variable errno is set to indicate the error.
+
+
+					pipe
+
+prototype    :	int	pipe(int fildes[2])
+
+librairie	 :	<unistd.h>
+
+description  :	The pipe() function creates a pipe (an object that allows unidirectional data flow) and allocates a pair of file descriptors.
+				The first descriptor connects to the read end of the pipe; the second connects to the write end.
+
+				Data written to fildes[1] appears on fildes[0].  This allows the output of one program to be sent to another program: the source's standard output is set up to be the write end of the pipe.
+				the sink's standard input is set up to be the read end of the pipe.  The pipe itself persists until all of its associated descriptors are closed.
+
+return value :	On successful creation of the pipe, zero is returned. Otherwise, a value of -1 is returned and the variable errno set to indicate the error.
+
+
+					unlink
+
+prototype    :	int unlink(const char *path)
+
+librairie	 :	<unistd.h>
+
+description  :	The unlink() function removes the link named by path from its directory and decrements the link count of the file which was referenced by the link.  If that decrement reduces the link count of the file to zero, and no process
+     			has the file open, then all resources associated with the file are reclaimed.  If one or more process have the file open when the last link is removed, the link is removed, but the removal of the file is delayed until all ref-
+     			erences to it have been closed.
+
+return value :	Upon successful completion, a value of 0 is returned.  Otherwise, a value of -1 is returned and errno is set to indicate the error.
+
+					wait
+
+prototype    :	pid_t wait(int *stat_loc)
+
+librairie	 :	<sys/wait.h>
+
+description  :	The wait() function suspends execution of its calling process until stat_loc information is available for a terminated child process, or a signal is received.  On return from a successful wait() call, the stat_loc area contains
+				termination information about the process that exited as defined below.
+
+				The wait4() call provides a more general interface for programs that need to wait for certain child processes, that need resource utilization statistics accumulated by child processes, or that require options.  The other wait
+				functions are implemented using wait4().
+
+				The pid parameter specifies the set of child processes for which to wait.  If pid is -1, the call waits for any child process.  If pid is 0, the call waits for any child process in the process group of the caller.  If pid is
+				greater than zero, the call waits for the process with process id pid.  If pid is less than -1, the call waits for any process whose process group id equals the absolute value of pid.
+
+
+return value :
+
+
+					waitpd
+
+prototype    :	pid_t waitpid(pid_t pid, int *stat_loc, int options)
+
+librairie	 :	<sys/wait.h>
+
+description  :	x
+
+return value :	if waitpid() returns due to a stopped or terminated child process, the process ID of the child is returned to the calling process.  If there are no children not previously awaited, -1 is returned with errno
+     			set to [ECHILD].  Otherwise, if WNOHANG is specified and there are no stopped or exited children, 0 is returned.  If an error is detected or a caught signal aborts the call, a value of -1 is returned and errno is set to indi-
+    			cate the error.
