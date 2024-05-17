@@ -5,7 +5,7 @@ CC = GCC
 SRC_DIR = ./src/
 LIBFT_DIR = ./libs/libft
 NAME = pipex
-SRC = $(SRC_DIR)get_content.c $(SRC_DIR)main.c $(SRC_DIR)utils.c
+SRC = $(SRC_DIR)get_content.c $(SRC_DIR)main.c $(SRC_DIR)with_here_doc.c $(SRC_DIR)without_here_doc.c $(SRC_DIR)utils.c
 
 # -- COLORS -- # 
 BLACK=\033[0;30m# Black

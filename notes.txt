@@ -128,3 +128,15 @@ description  :	x
 return value :	if waitpid() returns due to a stopped or terminated child process, the process ID of the child is returned to the calling process.  If there are no children not previously awaited, -1 is returned with errno
      			set to [ECHILD].  Otherwise, if WNOHANG is specified and there are no stopped or exited children, 0 is returned.  If an error is detected or a caught signal aborts the call, a value of -1 is returned and errno is set to indi-
     			cate the error.
+
+
+    create a pipe for heredoc
+    read with read or gnl
+    write the input chars to pipe[1] until you get the limiter
+    close pipe[1]
+    dup pipe[0] to 0
+    close pipe[0]
+    execute program
+
+	dup2(var->here_fd[0], 0)
+	write(pipe[1], "c", 1)

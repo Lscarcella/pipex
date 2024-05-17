@@ -6,7 +6,7 @@
 /*   By: lscarcel <lscarcel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 08:37:51 by lscarcel          #+#    #+#             */
-/*   Updated: 2024/05/13 13:53:35 by lscarcel         ###   ########.fr       */
+/*   Updated: 2024/05/17 15:10:41 by lscarcel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,19 +24,29 @@
 
 typedef	struct s_data
 {
-	int file1_fd;
-	int	file2_fd;
+	int 	infile_fd;
+	int		outfile_fd;
+	int		has_heredoc;
+	int 	argc;
+	char	**argv;
+	char	*infile;
+	pid_t	pid_father;
+	pid_t	pid_son;
 }	t_data;
 
 
-int		is_reachable(char **argv, int i);
-int 	is_readable(char **argv, int i);
-int 	is_executable(char **argv, int i);
-void	infile_exist(char **argv);
-void	infile_is_readable(char **argv);
-void	open_infile_outfile(char **argv, t_data *data);
-void	parse_args(char **argv, t_data *data);
-void	init_struct(t_data *data);
+void	init_struct(int argc, char **argv, t_data *data);
+int		is_reachable(t_data *data, int i);
+int 	is_readable(t_data *data, int i);
+int 	is_executable(t_data *data, int i);
+void	infile_exist(t_data *data);
+void	infile_is_readable(t_data *data);
+void	open_infile_outfile(t_data *data);
+void	parse_args(t_data *data);
+void	has_heredoc(t_data *data);
+void	handle_here_doc(t_data *data);
+void	without_here_doc(t_data *data);
+void	with_here_doc(t_data *data);
 
 // Colors
 # define COLOR_BLACK "\033[0;30m" // Black

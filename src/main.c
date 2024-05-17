@@ -6,7 +6,7 @@
 /*   By: lscarcel <lscarcel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 08:39:09 by lscarcel          #+#    #+#             */
-/*   Updated: 2024/05/13 13:50:05 by lscarcel         ###   ########.fr       */
+/*   Updated: 2024/05/17 15:06:28 by lscarcel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,11 @@ int main(int argc, char **argv)
 	t_data	data;
 	if(argc > 4)
 	{
-		init_struct(&data);
-		parse_args(argv, &data);
+		init_struct(argc, argv, &data);
+		if(data.has_heredoc == TRUE)
+			with_here_doc(&data);
+		else 
+			without_here_doc(&data);
 	}
 	else
 		printf("wrong arguments number\n");
