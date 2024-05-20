@@ -6,7 +6,7 @@
 /*   By: lozkuro <lozkuro@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 14:03:32 by lscarcel          #+#    #+#             */
-/*   Updated: 2024/04/19 11:47:40 by lozkuro          ###   ########.fr       */
+/*   Updated: 2024/05/20 13:14:15 by lozkuro          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,12 +54,13 @@ void		ft_striteri(char *s, void (*f)(unsigned int, char*));
 void		ft_putchar_fd(char c, int fd);
 void		ft_putstr_fd(char *s, int fd);
 void		ft_putendl_fd(char *s, int fd);
+int			ft_strcmp(const char *s1, const char *s2);
 
 // GET_NEXT_LINE
 
 //Buffer size
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 20
+#  define BUFFER_SIZE 1024
 # endif
 
 //Function Prototypes

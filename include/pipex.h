@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lscarcel <lscarcel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lozkuro <lozkuro@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 08:37:51 by lscarcel          #+#    #+#             */
-/*   Updated: 2024/05/17 15:10:41 by lscarcel         ###   ########.fr       */
+/*   Updated: 2024/05/20 13:55:29 by lozkuro          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ typedef	struct s_data
 	char	*infile;
 	pid_t	pid_father;
 	pid_t	pid_son;
+	int 	mypipe[2];
 }	t_data;
 
 
@@ -47,6 +48,9 @@ void	has_heredoc(t_data *data);
 void	handle_here_doc(t_data *data);
 void	without_here_doc(t_data *data);
 void	with_here_doc(t_data *data);
+void	first_pipe(t_data *data, char *buffer, int bytes_read);
+void	delete_nl(char *buffer, int bytes_read);
+
 
 // Colors
 # define COLOR_BLACK "\033[0;30m" // Black

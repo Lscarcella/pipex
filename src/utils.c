@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lscarcel <lscarcel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lozkuro <lozkuro@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 11:05:21 by lscarcel          #+#    #+#             */
-/*   Updated: 2024/05/17 15:12:15 by lscarcel         ###   ########.fr       */
+/*   Updated: 2024/05/20 13:54:20 by lozkuro          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,4 +73,26 @@ void	has_heredoc(t_data *data)
 	len = ft_strlen(data->argv[1]);
 	if(ft_strncmp(data->argv[1], "here_doc", len) == 0)
 		data->has_heredoc = 1;
+}
+void	delete_nl(char *buffer, int bytes_read)
+{	
+		if (buffer[bytes_read - 1] == '\n')
+        {
+            buffer[bytes_read - 1] = '\0';
+            bytes_read--;
+        }
+}
+
+void	first_pipe(t_data *data, char *buffer, int bytes_read)
+{
+	if (pipe(data->mypipe) != 0)
+	{
+		write(STDERR_FILENO, "pipe failed.\n", 13);
+		exit(EXIT_FAILURE) ;
+	}
+	if (write(data->mypipe[1], buffer, bytes_read) == -1)
+        {
+            write(STDERR_FILENO, "write Error.\n", 13);
+            exit(EXIT_FAILURE);
+        }
 }

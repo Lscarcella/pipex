@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lscarcel <lscarcel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lozkuro <lozkuro@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 08:39:09 by lscarcel          #+#    #+#             */
-/*   Updated: 2024/05/17 15:06:28 by lscarcel         ###   ########.fr       */
+/*   Updated: 2024/05/20 08:27:25 by lozkuro          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,10 @@ int main(int argc, char **argv)
 			without_here_doc(&data);
 	}
 	else
+	{
 		printf("wrong arguments number\n");
 		return (0);
+	}
 }
 
 // ft_exec()

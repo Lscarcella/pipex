@@ -1,7 +1,7 @@
 CFLAGS = -Wall -Wextra -Werror -g
 DEPS = ./include/pipex.h
 RM = rm -rf
-CC = GCC
+# CC = GCC
 SRC_DIR = ./src/
 LIBFT_DIR = ./libs/libft
 NAME = pipex
