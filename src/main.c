@@ -6,7 +6,7 @@
 /*   By: lozkuro <lozkuro@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 08:39:09 by lscarcel          #+#    #+#             */
-/*   Updated: 2024/05/20 08:27:25 by lozkuro          ###   ########.fr       */
+/*   Updated: 2024/05/27 11:20:01 by lozkuro          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,12 @@
 // rediriger les descripteurs de fichiers avec dup2()
 // exécuter ses commandes avec execve() dans les processus enfants.
 
-int main(int argc, char **argv)
+int main(int argc, char **argv, char **envp)
 {
 	t_data	data;
 	if(argc > 4)
 	{
-		init_struct(argc, argv, &data);
+		init_struct(argc, argv, envp, &data);
 		if(data.has_heredoc == TRUE)
 			with_here_doc(&data);
 		else 
@@ -30,6 +30,10 @@ int main(int argc, char **argv)
 	else
 	{
 		printf("wrong arguments number\n");
+		while(data.envp){
+			printf(data.envp);
+			data.envp++;
+		}
 		return (0);
 	}
 }

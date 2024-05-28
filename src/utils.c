@@ -6,7 +6,7 @@
 /*   By: lozkuro <lozkuro@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 11:05:21 by lscarcel          #+#    #+#             */
-/*   Updated: 2024/05/20 13:54:20 by lozkuro          ###   ########.fr       */
+/*   Updated: 2024/05/27 12:59:55 by lozkuro          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,23 +15,16 @@
 void	parse_args(t_data *data)
 {
 	if(data->has_heredoc == FALSE)
-	{	
-		infile_exist(data);
-		infile_is_readable(data);
-	}
+		infile_check(data);
 	open_infile_outfile(data);
 }
-void	infile_exist(t_data *data)
+void	infile_check(t_data *data)
 {
 	if(is_reachable(data, 1) != 0)
 	{
 		printf("no such file or directory: %s\n", data->argv[1]);	
 		exit (EXIT_FAILURE);
 	}
-}
-
-void	infile_is_readable(t_data *data)
-{
 	if(is_readable(data, 1) != 0)
 	{
 		printf("permission denied: %s\n", data->argv[1]);	
@@ -58,17 +51,20 @@ void	open_infile_outfile(t_data *data)
 	}
 }
 
-void	init_struct(int argc, char **argv, t_data *data)
+void	init_struct(int argc, char **argv, char **envp, t_data *data)
 {
 	ft_memset(data, 0, sizeof(*data));
 	data->argc = argc;
 	data->argv = argv;
+	data->envp = envp;
 	has_heredoc(data);
+	data->cmd_nbr = (argc - 3) - data->has_heredoc;
+	data->pipe_nbr = 2 * (data->cmd_nbr - 1);
 }
 
-void	has_heredoc(t_data *data)
-{
-	size_t	len;
+	void	has_heredoc(t_data *data)
+	{
+		size_t	len;
 
 	len = ft_strlen(data->argv[1]);
 	if(ft_strncmp(data->argv[1], "here_doc", len) == 0)
@@ -96,3 +92,4 @@ void	first_pipe(t_data *data, char *buffer, int bytes_read)
             exit(EXIT_FAILURE);
         }
 }
+

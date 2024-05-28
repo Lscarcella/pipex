@@ -1,19 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   without_here_doc.c                                 :+:      :+:    :+:   */
+/*   handle_commands.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lozkuro <lozkuro@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/17 14:57:51 by lscarcel          #+#    #+#             */
-/*   Updated: 2024/05/23 11:27:55 by lozkuro          ###   ########.fr       */
+/*   Created: 2024/05/13 11:05:21 by lscarcel          #+#    #+#             */
+/*   Updated: 2024/05/27 11:29:15 by lozkuro          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/pipex.h"
 
-void	without_here_doc(t_data *data)
+char	*get_path(t_data *data)
 {
-	parse_args(data);
+	while (ft_strcmp("PATH", data->envp))
+		data->envp++;
+	return (data->envp + 5);
 }
 
+char	*get_cmd(char **paths, char *cmd)
+{
+	char	*tmp;
+	char	*command;
+
+	while (*paths)
+	{
+		tmp = ft_strjoin(*paths, "/");
+		command = ft_strjoin(tmp, cmd);
+		free(tmp);
+		if (access(command, 0) == 0)
+			return (command);
+		free(command);
+		paths++;
+	}
+	return (NULL);
+}

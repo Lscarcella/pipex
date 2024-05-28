@@ -6,7 +6,7 @@
 /*   By: lozkuro <lozkuro@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 08:37:51 by lscarcel          #+#    #+#             */
-/*   Updated: 2024/05/20 13:55:29 by lozkuro          ###   ########.fr       */
+/*   Updated: 2024/05/27 11:27:31 by lozkuro          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,19 +29,21 @@ typedef	struct s_data
 	int		has_heredoc;
 	int 	argc;
 	char	**argv;
+	char	**envp;
 	char	*infile;
 	pid_t	pid_father;
 	pid_t	pid_son;
 	int 	mypipe[2];
+	int		cmd_nbr;
+	int		pipe_nbr;
 }	t_data;
 
 
-void	init_struct(int argc, char **argv, t_data *data);
+void	init_struct(int argc, char **argv, char **envp, t_data *data);
 int		is_reachable(t_data *data, int i);
 int 	is_readable(t_data *data, int i);
 int 	is_executable(t_data *data, int i);
-void	infile_exist(t_data *data);
-void	infile_is_readable(t_data *data);
+void	infile_check(t_data *data);
 void	open_infile_outfile(t_data *data);
 void	parse_args(t_data *data);
 void	has_heredoc(t_data *data);
@@ -50,7 +52,7 @@ void	without_here_doc(t_data *data);
 void	with_here_doc(t_data *data);
 void	first_pipe(t_data *data, char *buffer, int bytes_read);
 void	delete_nl(char *buffer, int bytes_read);
-
+char	*find_path(t_data *data);
 
 // Colors
 # define COLOR_BLACK "\033[0;30m" // Black
