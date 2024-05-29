@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lozkuro <lozkuro@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lscarcel <lscarcel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 08:37:51 by lscarcel          #+#    #+#             */
-/*   Updated: 2024/05/28 20:49:53 by lozkuro          ###   ########.fr       */
+/*   Updated: 2024/05/29 15:35:45 by lscarcel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,19 +35,19 @@ typedef	struct s_data
 	int 	pipe_fd[2];
 	int		cmd_nbr;
 	int		pipe_nbr;
+	size_t	argv_len;
 }	t_data;
 
 
 void	init_struct(int argc, char **argv, char **envp, t_data *data);
-int		is_reachable(t_data *data, int i);
-int 	is_readable(t_data *data, int i);
-int 	is_executable(t_data *data, int i);
 void	infile_check(t_data *data);
-void	open_infile_outfile(t_data *data);
-void	parse_args(t_data *data);
+void	open_files(t_data *data);
+void	set_files(t_data *data);
 void	has_heredoc(t_data *data);
 void	handle_here_doc(t_data *data);
-void	error(char *err);
+void	error(const char *error_msg);
+void	set_files(t_data *data);
+void	create_here_doc_file(t_data *data);
 
 // Colors
 # define COLOR_BLACK "\033[0;30m" // Black

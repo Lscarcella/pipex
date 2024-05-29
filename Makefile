@@ -5,7 +5,7 @@ RM = rm -rf
 SRC_DIR = ./src/
 LIBFT_DIR = ./libs/libft
 NAME = pipex
-SRC = $(SRC_DIR)get_content.c $(SRC_DIR)main.c $(SRC_DIR)with_here_doc.c $(SRC_DIR)without_here_doc.c $(SRC_DIR)utils.c
+SRC =  $(SRC_DIR)main.c $(SRC_DIR)handle_here_doc.c $(SRC_DIR)utils.c
 
 # -- COLORS -- # 
 BLACK=\033[0;30m# Black
@@ -45,6 +45,9 @@ fclean: clean
 	@echo "--------------------------------------------------------"
 
 re: fclean all
+
+val: all
+	valgrind --leak-check=full --show-leak-kinds=all ./pipex here_doc stop 1 2 outfile
 
 
 # indique que 'all', 'clean', 'fclean' et 're' ne sont pas des fichiers. #
