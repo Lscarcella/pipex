@@ -6,7 +6,7 @@
 /*   By: lozkuro <lozkuro@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 08:37:51 by lscarcel          #+#    #+#             */
-/*   Updated: 2024/05/27 11:27:31 by lozkuro          ###   ########.fr       */
+/*   Updated: 2024/05/28 20:49:53 by lozkuro          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,15 +25,14 @@
 typedef	struct s_data
 {
 	int 	infile_fd;
+	int		tmp_file;
 	int		outfile_fd;
 	int		has_heredoc;
 	int 	argc;
 	char	**argv;
 	char	**envp;
 	char	*infile;
-	pid_t	pid_father;
-	pid_t	pid_son;
-	int 	mypipe[2];
+	int 	pipe_fd[2];
 	int		cmd_nbr;
 	int		pipe_nbr;
 }	t_data;
@@ -48,11 +47,7 @@ void	open_infile_outfile(t_data *data);
 void	parse_args(t_data *data);
 void	has_heredoc(t_data *data);
 void	handle_here_doc(t_data *data);
-void	without_here_doc(t_data *data);
-void	with_here_doc(t_data *data);
-void	first_pipe(t_data *data, char *buffer, int bytes_read);
-void	delete_nl(char *buffer, int bytes_read);
-char	*find_path(t_data *data);
+void	error(char *err);
 
 // Colors
 # define COLOR_BLACK "\033[0;30m" // Black

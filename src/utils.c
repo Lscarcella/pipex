@@ -6,7 +6,7 @@
 /*   By: lozkuro <lozkuro@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 11:05:21 by lscarcel          #+#    #+#             */
-/*   Updated: 2024/05/27 12:59:55 by lozkuro          ###   ########.fr       */
+/*   Updated: 2024/05/28 13:31:58 by lozkuro          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,34 +62,20 @@ void	init_struct(int argc, char **argv, char **envp, t_data *data)
 	data->pipe_nbr = 2 * (data->cmd_nbr - 1);
 }
 
-	void	has_heredoc(t_data *data)
-	{
-		size_t	len;
+void	has_heredoc(t_data *data)
+{
+	size_t	len;
 
 	len = ft_strlen(data->argv[1]);
 	if(ft_strncmp(data->argv[1], "here_doc", len) == 0)
 		data->has_heredoc = 1;
 }
-void	delete_nl(char *buffer, int bytes_read)
-{	
-		if (buffer[bytes_read - 1] == '\n')
-        {
-            buffer[bytes_read - 1] = '\0';
-            bytes_read--;
-        }
+
+void	error(char *err)
+{
+	perror (err);
+	exit (EXIT_FAILURE);
 }
 
-void	first_pipe(t_data *data, char *buffer, int bytes_read)
-{
-	if (pipe(data->mypipe) != 0)
-	{
-		write(STDERR_FILENO, "pipe failed.\n", 13);
-		exit(EXIT_FAILURE) ;
-	}
-	if (write(data->mypipe[1], buffer, bytes_read) == -1)
-        {
-            write(STDERR_FILENO, "write Error.\n", 13);
-            exit(EXIT_FAILURE);
-        }
-}
+
 
