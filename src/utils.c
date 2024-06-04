@@ -6,72 +6,27 @@
 /*   By: lscarcel <lscarcel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 11:05:21 by lscarcel          #+#    #+#             */
-/*   Updated: 2024/05/29 15:45:08 by lscarcel         ###   ########.fr       */
+/*   Updated: 2024/06/04 17:07:07 by lscarcel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/pipex.h"
 
-void	set_files(t_data *data)
-{
-	if (data->has_heredoc == FALSE)
-		infile_check(data);
-	open_files(data);
-}
-
-void	infile_check(t_data *data)
-{
-	if (access(data->argv[1], F_OK) != 0)
-	{
-		printf("no such file or directory: %s\n", data->argv[1]);
-		exit (EXIT_FAILURE);
-	}
-	if (access(data->argv[1], R_OK) != 0)
-	{
-		printf("permission denied: %s\n", data->argv[1]);
-		exit (EXIT_FAILURE);
-	}
-}
-
-void	open_files(t_data *data)
-{
-	if (data->has_heredoc == FALSE)
-	{
-		data->infile_fd = open(data->argv[1], O_RDONLY);
-		if (data->infile_fd == -1)
-		{
-			printf("Error when opening : %s", data->argv[1]);
-			exit(EXIT_FAILURE);
-		}
-	}
-	else
-	{
-		data->infile_fd = open("tmp_file", O_RDONLY);
-		if (data->infile_fd < 0)
-		{
-			unlink("tmp_file");
-			error("error while opening tmp_file");
-		}
-	}
-	data->outfile_fd = open(data->argv[data->argc - 1],
-			O_WRONLY | O_CREAT, 0644);
-	if (data->outfile_fd == -1)
-	{
-		printf("Error when opening : %s", data->argv[2]);
-		exit(EXIT_FAILURE);
-	}
-}
-
-void	init_struct(int argc, char **argv, char **envp, t_data *data)
+void init_struct(int argc, char **argv, char **envp, t_data *data)
 {
 	ft_memset(data, 0, sizeof(*data));
 	data->argc = argc;
 	data->argv = argv;
 	data->envp = envp;
 	has_heredoc(data);
+	if(data->has_heredoc == TRUE)
+		data->arg_pos == 2;
+	else
+		data->arg_pos == 1;
 	data->cmd_nbr = (argc - 3) - data->has_heredoc;
 	data->pipe_nbr = 2 * (data->cmd_nbr - 1);
 	data->argv_len = ft_strlen(data->argv[2]);
+	data->env_path = get_path(envp);
 }
 
 void	has_heredoc(t_data *data)
@@ -83,8 +38,25 @@ void	has_heredoc(t_data *data)
 		data->has_heredoc = 1;
 }
 
-void	error(const char *error_msg)
+
+char	*ft_join(char *s1, char const *s2)
 {
-	perror (error_msg);
-	exit (EXIT_FAILURE);
+	size_t	s1len;
+	size_t	s2len;
+	char	*newstring;
+
+	if (s1 == NULL || s2 == NULL)
+		return (NULL);
+	s1len = ft_strlen(s1);
+	s2len = ft_strlen(s2);
+	newstring = malloc((s1len + s2len) + 1);
+	ft_strlcpy(newstring, s1, s1len + 1);
+	ft_strlcat(newstring, s2, s1len + s2len + 1);
+	return (newstring);
+}
+char	*get_path(char **envp)
+{
+	while (ft_strncmp("PATH=", *envp, 5))
+		envp++;
+	return (*envp + 5);
 }

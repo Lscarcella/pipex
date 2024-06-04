@@ -1,39 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   handle_commands.c                                  :+:      :+:    :+:   */
+/*   errors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lozkuro <lozkuro@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lscarcel <lscarcel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 11:05:21 by lscarcel          #+#    #+#             */
-/*   Updated: 2024/05/28 11:14:01 by lozkuro          ###   ########.fr       */
+/*   Updated: 2024/06/04 17:10:20 by lscarcel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/pipex.h"
 
-char	*get_path(t_data *data)
+void	error(const char *error_msg)
 {
-	while (ft_strcmp("PATH", data->envp))
-		data->envp++;
-	return (data->envp + 5);
+	perror (error_msg);
+	exit (EXIT_FAILURE);
 }
-
-char	*get_cmd(char **paths, char *cmd)
-{
-	char	*tmp;
-	char	*command;
-
-	while (*paths)
-	{
-		tmp = ft_strjoin(*paths, "/");
-		command = ft_strjoin(tmp, cmd);
-		free(tmp);
-		if (access(command, 0) == 0)
-			return (command);
-		free(command);
-		paths++;
-	}
-	return (NULL);
-}
-

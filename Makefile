@@ -5,7 +5,7 @@ RM = rm -rf
 SRC_DIR = ./src/
 LIBFT_DIR = ./libs/libft
 NAME = pipex
-SRC =  $(SRC_DIR)main.c $(SRC_DIR)handle_here_doc.c $(SRC_DIR)utils.c
+SRC =  $(SRC_DIR)main.c $(SRC_DIR)errors.c $(SRC_DIR)handle_files.c $(SRC_DIR)pipex.c $(SRC_DIR)handle_here_doc.c $(SRC_DIR)utils.c
 
 # -- COLORS -- # 
 BLACK=\033[0;30m# Black
