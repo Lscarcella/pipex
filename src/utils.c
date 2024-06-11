@@ -6,36 +6,35 @@
 /*   By: lscarcel <lscarcel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 11:05:21 by lscarcel          #+#    #+#             */
-/*   Updated: 2024/06/04 17:07:07 by lscarcel         ###   ########.fr       */
+/*   Updated: 2024/06/05 10:19:29 by lscarcel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/pipex.h"
 
-void init_struct(int argc, char **argv, char **envp, t_data *data)
+void init_struct(int argc, char **argv, char **envp, t_pipex *pipex)
 {
-	ft_memset(data, 0, sizeof(*data));
-	data->argc = argc;
-	data->argv = argv;
-	data->envp = envp;
-	has_heredoc(data);
-	if(data->has_heredoc == TRUE)
-		data->arg_pos == 2;
+	pipex->argc = argc;
+	pipex->argv = argv;
+	pipex->envp = envp;
+	has_heredoc(pipex);
+	if(pipex->data.has_heredoc == TRUE)
+		pipex->data.arg_pos == 2;
 	else
-		data->arg_pos == 1;
-	data->cmd_nbr = (argc - 3) - data->has_heredoc;
-	data->pipe_nbr = 2 * (data->cmd_nbr - 1);
-	data->argv_len = ft_strlen(data->argv[2]);
-	data->env_path = get_path(envp);
+		pipex->data.arg_pos == 1;
+	pipex->data.cmd_nbr = (argc - 3) - pipex->data.has_heredoc;
+	pipex->data.pipe_nbr = 2 * (pipex->data.cmd_nbr - 1);
+	pipex->data.argv_len = ft_strlen(pipex->argv[2]);
+	pipex->data.env_path = get_path(envp);
 }
 
-void	has_heredoc(t_data *data)
+void	has_heredoc(t_pipex *pipex)
 {
 	size_t	len;
 
-	len = ft_strlen(data->argv[1]);
-	if (ft_strncmp(data->argv[1], "here_doc", len) == 0)
-		data->has_heredoc = 1;
+	len = ft_strlen(pipex->argv[1]);
+	if (ft_strncmp(pipex->argv[1], "here_doc", len) == 0)
+		pipex->data.has_heredoc = 1;
 }
 
 

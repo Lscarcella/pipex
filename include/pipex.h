@@ -6,7 +6,7 @@
 /*   By: lscarcel <lscarcel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 08:37:51 by lscarcel          #+#    #+#             */
-/*   Updated: 2024/06/04 17:15:31 by lscarcel         ###   ########.fr       */
+/*   Updated: 2024/06/05 16:18:10 by lscarcel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,22 +22,33 @@
 # define SUCCESS	0
 # define FAIL		1
 
-typedef	struct s_data
+typedef	struct s_pipex
 {
 	int 	argc;
 	char	**argv;
-	int		arg_pos;
 	char	**envp;
+	t_files	files;
+	t_data	data;
+}	t_pipex;
+
+typedef	struct s_files
+{
 	int 	infile_fd;
-	int		tmp_file;
 	int		outfile_fd;
-	int		has_heredoc;
+	int		tmp_file;
 	char	*infile;
-	char	*cmd_path;
-	int		cmd_nbr;
-	// int		pipe_nbr;
+}	t_files;
+
+typedef	struct s_data
+{
+	int		has_heredoc;
 	int 	pipe_fd[2];
+	int		arg_pos;
+	int		cmd_nbr;
+	int		pipe_nbr;
+	int		initial_pipe_nbr;
 	char	*env_path;
+	char	*cmd_path;
 	size_t	argv_len;
 }	t_data;
 
@@ -51,20 +62,22 @@ void	create_here_doc_file(t_data *data);
 void	handle_here_doc(t_data *data);
 
 //pipex
-void	pipex(t_data *data);
+void	pipe(t_data *data);
 char 	*get_cmd(t_data *data, char *cmd_arg);
 void	child(t_data * data);
 void	execution(t_data *data);
 void	parent(t_data *data, pid_t pid);
+
 //utils
 void	init_struct(int argc, char **argv, char **envp, t_data *data);
 void	has_heredoc(t_data *data);
-void	error(const char *error_msg);
-void	set_files(t_data *data);
 char	*get_path(char **envp);
 char	*ft_join(char *s1, char const *s2);
 
 //error
+void	error(const char *error_msg);
+void	close(t_data *data);
+
 
 // Colors
 # define COLOR_BLACK "\033[0;30m" // Black
