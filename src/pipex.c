@@ -6,16 +6,15 @@
 /*   By: lozkuro <lozkuro@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 11:05:21 by lscarcel          #+#    #+#             */
-/*   Updated: 2024/06/14 11:59:55 by lozkuro          ###   ########.fr       */
+/*   Updated: 2024/06/18 14:36:20 by lozkuro          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/pipex.h"
 
-void	pipex(t_pipex *pipex)
+void	
+process(t_pipex *pipex)
 {
-	int i;
-	
 	first_cmd(pipex);
 	pipex->data.cmd_nbr--;
 	while(pipex->data.cmd_nbr > 1)
@@ -47,7 +46,7 @@ void	first_cmd(t_pipex *pipex)
 		execution(pipex);
 	}
 	waitpid(pid, NULL, 0);
-	close(pipex->files.infile);
+	close(pipex->files.infile_fd);
 	close(pipe_fd[0]);
 	close(pipe_fd[1]);
 	pipex->data.arg_pos++;	
@@ -61,7 +60,7 @@ void	middle_cmd(t_pipex *pipex)
 	get_cmd(pipex, pipex->argv[pipex->data.arg_pos]);
 
 	if(pipe(pipe_fd) == -1)
-		error(pipe);
+		error("pipe");
 	pid = fork();
 	if (pid == -1)
 		error("fork error");
@@ -86,8 +85,8 @@ void	last_cmd(t_pipex *pipex)
 	pid_t pid;
 
 	if(pipe(pipe_fd) == -1)
-		error(pipe);
-	pid = fork;
+		error("pipe");
+	pid = fork();
 	if(pid == 0)
 	{
 		close(pipe_fd[0]);
@@ -101,6 +100,32 @@ void	last_cmd(t_pipex *pipex)
 		dup2(pipe_fd[0], STDIN_FILENO);
 		close(pipe_fd[0]);
 	}
+}
+
+char *get_cmd(t_pipex *pipex, char *cmd_arg)
+{
+	char	*tmp;
+	char	**path_tab;
+	char	*cmd;
+	int		i;
+	
+	i = 0;
+	path_tab = ft_split(pipex->data.env_path, ':');
+	cmd = ft_join("/", cmd_arg);
+	while(path_tab[i])
+	{
+		tmp = ft_strjoin(path_tab[i], cmd);
+		if(access(tmp, F_OK) == 0)
+		{
+			pipex->data.cmd_path = tmp;
+			free(tmp);
+			return (0);
+		}
+		i++;
+	}
+	error("command not found");
+	free(tmp);
+	exit(EXIT_FAILURE);
 }
 // void	pipe(t_pipex *pipex)
 // {
@@ -124,32 +149,6 @@ void	last_cmd(t_pipex *pipex)
 // 	}
 // }
 
-// char *get_cmd(t_pipex *pipex, char *cmd_arg)
-// {
-// 	char	*tmp;
-// 	char	**path_tab;
-// 	char	*cmd;
-// 	int		i;
-	
-// 	i = 0;
-// 	path_tab = ft_split(pipex->data.env_path, ':');
-// 	cmd = ft_join("/", cmd_arg);
-// 	while(path_tab)
-// 	{
-// 		tmp = ft_strjoin(path_tab[i], cmd);
-// 		if(access(tmp, F_OK) == 0)
-// 		{
-// 			pipex->data.cmd_path = tmp;
-// 			free(tmp);
-// 			return (0);
-// 		}
-// 		i++;
-// 	}
-// 	error("command not found");
-// 	free(tmp);
-// 	exit(EXIT_FAILURE);
-// 	//fermer tout les fichiers
-// }
 	
 // void	child(t_pipex * pipex, int 	pipe_fd[2])
 // {
@@ -169,7 +168,7 @@ void	last_cmd(t_pipex *pipex)
 
 void	execution(t_pipex *pipex)
 {
-	if(execve(pipex->data.cmd_path, &pipex->argv[pipex->data.arg_pos], pipex->envp) == -1);
+	if(execve(pipex->data.cmd_path, &pipex->argv[pipex->data.arg_pos], pipex->envp) == -1)
 	{
 		// close(pipex->data.pipe_fd[1]);
 		// close(pipex->data.pipe_fd[0]);

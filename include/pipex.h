@@ -6,13 +6,14 @@
 /*   By: lozkuro <lozkuro@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 08:37:51 by lscarcel          #+#    #+#             */
-/*   Updated: 2024/06/13 15:58:44 by lozkuro          ###   ########.fr       */
+/*   Updated: 2024/06/18 09:15:56 by lozkuro          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SO_LONG_H
 # include <stdlib.h>
 # include "../libs/libft/libft.h"
+#include <sys/wait.h>
 
 # define SO_LONG_H
 # define WIDTH		256
@@ -21,15 +22,6 @@
 # define FALSE		0
 # define SUCCESS	0
 # define FAIL		1
-
-typedef	struct s_pipex
-{
-	int 	argc;
-	char	**argv;
-	char	**envp;
-	t_files	files;
-	t_data	data;
-}	t_pipex;
 
 typedef	struct s_files
 {
@@ -51,6 +43,16 @@ typedef	struct s_data
 	size_t	argv_len;
 }	t_data;
 
+typedef	struct s_pipex
+{
+	int 	argc;
+	char	**argv;
+	char	**envp;
+	t_files	files;
+	t_data	data;
+}	t_pipex;
+
+
 // Handle_files
 void	set_files(t_pipex *pipex);
 void	infile_check(t_pipex *pipex);
@@ -61,11 +63,15 @@ void	create_here_doc_file(t_pipex *pipex);
 void	handle_here_doc(t_pipex *pipex);
 
 //pipex
-void	pipex(t_pipex *pipex);
+void	process(t_pipex *pipex);
 char 	*get_cmd(t_pipex *pipex, char *cmd_arg);
-void	child(t_pipex * pipex, int 	pipe_fd[2]);
 void	execution(t_pipex *pipex);
-void	parent(t_pipex *pipex, pid_t pid);
+void	first_cmd(t_pipex *pipex);
+void	middle_cmd(t_pipex *pipex);
+void	last_cmd(t_pipex *pipex);
+
+
+
 
 //utils
 void	init_struct(int argc, char **argv, char **envp, t_pipex *pipex);
@@ -74,8 +80,8 @@ char	*get_path(char **envp);
 char	*ft_join(char *s1, char const *s2);
 
 //error
-void	error(const char *error_msg);
-void	close(t_pipex *pipex);
+void	error(char *error_msg);
+void	close_fd(t_pipex *pipex);
 
 
 // Colors
