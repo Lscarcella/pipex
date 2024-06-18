@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lscarcel <lscarcel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lozkuro <lozkuro@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 08:37:51 by lscarcel          #+#    #+#             */
-/*   Updated: 2024/06/05 16:18:10 by lscarcel         ###   ########.fr       */
+/*   Updated: 2024/06/13 15:58:44 by lozkuro          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ typedef	struct s_files
 typedef	struct s_data
 {
 	int		has_heredoc;
-	int 	pipe_fd[2];
 	int		arg_pos;
 	int		cmd_nbr;
 	int		pipe_nbr;
@@ -53,30 +52,30 @@ typedef	struct s_data
 }	t_data;
 
 // Handle_files
-void	set_files(t_data *data);
-void	infile_check(t_data *data);
-void	open_files(t_data *data);
+void	set_files(t_pipex *pipex);
+void	infile_check(t_pipex *pipex);
+void	open_files(t_pipex *pipex);
 
 // Handle_here_doc
-void	create_here_doc_file(t_data *data);
-void	handle_here_doc(t_data *data);
+void	create_here_doc_file(t_pipex *pipex);
+void	handle_here_doc(t_pipex *pipex);
 
 //pipex
-void	pipe(t_data *data);
-char 	*get_cmd(t_data *data, char *cmd_arg);
-void	child(t_data * data);
-void	execution(t_data *data);
-void	parent(t_data *data, pid_t pid);
+void	pipex(t_pipex *pipex);
+char 	*get_cmd(t_pipex *pipex, char *cmd_arg);
+void	child(t_pipex * pipex, int 	pipe_fd[2]);
+void	execution(t_pipex *pipex);
+void	parent(t_pipex *pipex, pid_t pid);
 
 //utils
-void	init_struct(int argc, char **argv, char **envp, t_data *data);
-void	has_heredoc(t_data *data);
+void	init_struct(int argc, char **argv, char **envp, t_pipex *pipex);
+void	has_heredoc(t_pipex *pipex);
 char	*get_path(char **envp);
 char	*ft_join(char *s1, char const *s2);
 
 //error
 void	error(const char *error_msg);
-void	close(t_data *data);
+void	close(t_pipex *pipex);
 
 
 // Colors
