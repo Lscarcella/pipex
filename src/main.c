@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lozkuro <lozkuro@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lscarcel <lscarcel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 08:39:09 by lscarcel          #+#    #+#             */
-/*   Updated: 2024/06/18 09:21:31 by lozkuro          ###   ########.fr       */
+/*   Updated: 2024/06/20 21:33:35 by lscarcel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,11 @@
 int	main(int argc, char **argv, char **envp)
 {
 	t_pipex	pipex;
+	char *file_path = "/bin/ls";
+	char *args[] = {"ls", "-l", NULL};
+	char **env = envp;
 
+	printf("%d", execve(file_path, args, env));
 	if (argc > 4)
 	{
 		init_struct(argc, argv, envp, &pipex);
