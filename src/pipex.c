@@ -6,7 +6,7 @@
 /*   By: lscarcel <lscarcel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 11:05:21 by lscarcel          #+#    #+#             */
-/*   Updated: 2024/06/21 16:21:37 by lscarcel         ###   ########.fr       */
+/*   Updated: 2024/07/02 09:14:00 by lscarcel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,13 +64,11 @@ void	middle_cmd(t_pipex *pipex)
 	{
 		close(pipe_fd[0]);
 		dup2(pipe_fd[1], STDOUT_FILENO);
-		close(pipe_fd[1]);
 		execution(pipex);
 	}
-	waitpid(pid, NULL, 0);
 	close(pipe_fd[1]);
 	dup2(pipe_fd[0], STDIN_FILENO);
-	close(pipe_fd[0]);
+	waitpid(pid, NULL, 0);
 	pipex->data.cmd_nbr--;
 	pipex->data.arg_pos++;
 }
@@ -86,7 +84,7 @@ void	last_cmd(t_pipex *pipex)
 	if(pid == 0)
 	{
 		close(pipe_fd[0]);
-		dup2(pipe_fd[1], STDOUT_FILENO);
+		dup2(pipex->files.outfile_fd, STDOUT_FILENO);
 		close(pipe_fd[1]);
 		execution(pipex);
 	}
@@ -127,13 +125,12 @@ char *get_cmd(t_pipex *pipex, char *cmd_arg)
 void	execution(t_pipex *pipex)
 {
 	char **cmd_tab;
-	char *cmd_path;
 
 	cmd_tab = ft_split(pipex->argv[pipex->data.arg_pos], ' ');
-	cmd_path = get_cmd(pipex, pipex->argv[pipex->data.arg_pos]);
-	cmd_tab[0] = cmd_path;
+	get_cmd(pipex, pipex->argv[pipex->data.arg_pos]);
+	// cmd_tab[0] = pipex->data.cmd_path;
 
-	if (execve(cmd_path, cmd_tab, pipex->envp) == -1)
+	if (execve(pipex->data.cmd_path, cmd_tab, pipex->envp) == -1)
 	{
 		error("execve error");
 	}
@@ -141,5 +138,5 @@ void	execution(t_pipex *pipex)
 	{
 		free(cmd_tab);
 	}
-	free(cmd_path);
+	free(pipex->data.cmd_path);
 }

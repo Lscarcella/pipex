@@ -1,0 +1,9 @@
+Makefile
+include
+infile
+libs
+notes.txt
+outfile
+pipex
+src
+tmp_file
