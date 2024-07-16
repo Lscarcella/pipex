@@ -6,7 +6,7 @@
 /*   By: lscarcel <lscarcel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 08:37:51 by lscarcel          #+#    #+#             */
-/*   Updated: 2024/06/21 16:19:12 by lscarcel         ###   ########.fr       */
+/*   Updated: 2024/07/16 12:15:55 by lscarcel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ typedef	struct s_data
 	int		initial_pipe_nbr;
 	char	*env_path;
 	char	*cmd_path;
+	char	**cmd_tab;
 	size_t	argv_len;
 }	t_data;
 
@@ -64,17 +65,20 @@ void	handle_here_doc(t_pipex *pipex);
 
 //pipex
 void	process(t_pipex *pipex);
-char 	*get_cmd(t_pipex *pipex, char *cmd_arg);
+void	get_cmd(t_pipex *pipex, char *cmd_arg);
 void	execution(t_pipex *pipex);
 void	first_cmd(t_pipex *pipex);
 void	middle_cmd(t_pipex *pipex);
 void	last_cmd(t_pipex *pipex);
 
+
 //utils
 void	init_struct(int argc, char **argv, char **envp, t_pipex *pipex);
 void	has_heredoc(t_pipex *pipex);
 char	*get_path(char **envp);
-char	*ft_join(char *s1, char const *s2);
+char	*build_cmd(t_pipex *pipex, char *cmd);
+void	free_tab(char **tab);
+// char	*ft_join(char *s1, char const *s2);
 
 //error
 void	error(char *error_msg);

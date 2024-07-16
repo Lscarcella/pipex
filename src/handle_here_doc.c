@@ -6,11 +6,28 @@
 /*   By: lscarcel <lscarcel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 14:57:38 by lscarcel          #+#    #+#             */
-/*   Updated: 2024/06/05 08:49:55 by lscarcel         ###   ########.fr       */
+/*   Updated: 2024/07/16 13:43:56 by lscarcel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/pipex.h"
+
+void	has_heredoc(t_pipex *pipex)
+{
+	size_t	len;
+
+	len = ft_strlen(pipex->argv[1]);
+	if (ft_strncmp(pipex->argv[1], "here_doc", len) == 0)
+	{
+		pipex->data.has_heredoc = 1;
+		pipex->data.arg_pos = 3;
+	}
+	else
+	{
+		pipex->data.has_heredoc = 0;
+		pipex->data.arg_pos = 2;
+	}
+}
 
 void	create_here_doc_file(t_pipex *pipex)
 {

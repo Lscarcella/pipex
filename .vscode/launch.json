@@ -4,13 +4,20 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
+		{
+			"type": "lldb",
+			"request": "attach",
+			"name": "Attach",
+			"pid": "${command:pickMyProcess}" // use ${command:pickProcess} to pick other users' processes
+		},
         {
             "type": "lldb",
             "request": "launch",
             "name": "Debug",
             "program": "${workspaceFolder}/pipex",
-            "args": ["infile", "ls", "ls", "outfile"],
+            "args": ["infile", "ls", "ls -la", "outfile"],
             "cwd": "${workspaceFolder}"
+			// set follow-fork-mode child
         }
     ]
 }

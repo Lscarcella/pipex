@@ -6,7 +6,7 @@
 /*   By: lscarcel <lscarcel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 08:39:09 by lscarcel          #+#    #+#             */
-/*   Updated: 2024/06/22 10:32:58 by lscarcel         ###   ########.fr       */
+/*   Updated: 2024/07/16 13:48:48 by lscarcel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	main(int argc, char **argv, char **envp)
 	}
 	else
 	{
-		printf("wrong arguments number\n");
+		printf("Error\nWrong argument number\n");
 		return (0);
 	}
 }
