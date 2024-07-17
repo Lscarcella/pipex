@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   handle_here_doc.c                                  :+:      :+:    :+:   */
+/*   handle_here_doc_bonus.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lscarcel <lscarcel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 14:57:38 by lscarcel          #+#    #+#             */
-/*   Updated: 2024/07/16 13:43:56 by lscarcel         ###   ########.fr       */
+/*   Updated: 2024/07/17 13:55:16 by lscarcel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/pipex.h"
+#include "../include/pipex_bonus.h"
 
 void	has_heredoc(t_pipex *pipex)
 {

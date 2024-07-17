@@ -1,16 +1,9 @@
-total 160
-drwxr-xr-x  15 lscarcel  2023_quebec    510 Jul 16 14:50 .
-drwxr-xr-x   9 lscarcel  2023_quebec    306 May 17 15:58 ..
--rw-r--r--@  1 lscarcel  2023_quebec   6148 May 17 15:57 .DS_Store
-drwxr-xr-x  15 lscarcel  2023_quebec    510 Jul  2 10:31 .git
-drwxr-xr-x   3 lscarcel  2023_quebec    102 May 29 07:40 .vscode
--rw-r--r--   1 lscarcel  2023_quebec   1503 Jun  4 17:10 Makefile
-drwxr-xr-x   3 lscarcel  2023_quebec    102 Jun 20 20:31 include
--rw-r--r--   1 lscarcel  2023_quebec    103 Jul  2 08:55 infile
-drwxr-xr-x   3 lscarcel  2023_quebec    102 May  7 10:26 libs
--rw-r--r--   1 lscarcel  2023_quebec   7175 May 17 11:10 notes.txt
--rw-r--r--   1 lscarcel  2023_quebec      0 Jul 16 15:06 outfile
--rwxr-xr-x   1 lscarcel  2023_quebec  55600 Jul 16 14:50 pipex
--rw-r--r--   1 lscarcel  2023_quebec      0 Jul  5 12:19 re
-drwxr-xr-x  14 lscarcel  2023_quebec    476 Jul 16 14:50 src
--rw-r--r--   1 lscarcel  2023_quebec      0 Jul 16 15:06 tmp_file
+Makefile
+include
+infile
+libs
+outfile
+pipex
+pipex_bonus
+src
+src_bonus

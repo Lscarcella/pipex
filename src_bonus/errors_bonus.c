@@ -1,30 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   errors_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lscarcel <lscarcel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/08 08:39:09 by lscarcel          #+#    #+#             */
-/*   Updated: 2024/07/17 11:30:49 by lscarcel         ###   ########.fr       */
+/*   Created: 2024/05/13 11:05:21 by lscarcel          #+#    #+#             */
+/*   Updated: 2024/07/17 13:55:07 by lscarcel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/pipex.h"
+#include "../include/pipex_bonus.h"
 
-int	main(int argc, char **argv, char **envp)
+void	error(char *error_msg)
 {
-	t_pipex	pipex;
+	perror (error_msg);
+	exit (EXIT_FAILURE);
+}
 
-	if (argc == 5)
-	{
-		init_struct(argc, argv, envp, &pipex);
-		set_files(&pipex);
-		process(&pipex);
-	}
-	else
-	{
-		printf("Error\nWrong argument number\n");
-		return (0);
-	}
+void	close_fd(t_pipex *pipex)
+{
+	close(pipex->files.infile_fd);
+	close(pipex->files.outfile_fd);
 }

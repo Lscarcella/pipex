@@ -1,22 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   utils_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lscarcel <lscarcel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 11:05:21 by lscarcel          #+#    #+#             */
-/*   Updated: 2024/07/17 14:24:25 by lscarcel         ###   ########.fr       */
+/*   Updated: 2024/07/17 13:55:27 by lscarcel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/pipex.h"
+#include "../include/pipex_bonus.h"
 
 void init_struct(int argc, char **argv, char **envp, t_pipex *pipex)
 {
 	pipex->argc = argc;
 	pipex->argv = argv;
 	pipex->envp = envp;
+	has_heredoc(pipex);
+	pipex->data.cmd_nbr = (argc - 3) - pipex->data.has_heredoc;
+	pipex->data.pipe_nbr = 2 * (pipex->data.cmd_nbr - 1);
 	pipex->data.argv_len = ft_strlen(pipex->argv[2]);
 	pipex->data.env_path = get_path(envp);
 
@@ -48,7 +51,7 @@ char *build_cmd(t_pipex *pipex, char *cmd)
 	char	**path_tab;
 	char	*cmd_path;
 	int		i;
-	
+
 	i = 0;
 	path_tab = ft_split(pipex->data.env_path, ':');
 	while(path_tab[i])

@@ -1,14 +1,15 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.h                                            :+:      :+:    :+:   */
+/*   pipex_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lscarcel <lscarcel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/07 08:37:51 by lscarcel          #+#    #+#             */
-/*   Updated: 2024/07/17 11:29:51 by lscarcel         ###   ########.fr       */
+/*   Created: 2024/07/17 10:35:47 by lscarcel          #+#    #+#             */
+/*   Updated: 2024/07/17 10:35:48 by lscarcel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #ifndef SO_LONG_H
 # include <stdlib.h>
@@ -27,14 +28,17 @@ typedef	struct s_files
 {
 	int 	infile_fd;
 	int		outfile_fd;
+	int		tmp_file;
 	char	*infile;
 }	t_files;
 
 typedef	struct s_data
 {
+	int		has_heredoc;
 	int		arg_pos;
 	int		cmd_nbr;
 	int		pipe_nbr;
+	int		initial_pipe_nbr;
 	char	*env_path;
 	char	*cmd_path;
 	char	**cmd_tab;
@@ -56,10 +60,14 @@ void	set_files(t_pipex *pipex);
 void	infile_check(t_pipex *pipex);
 void	open_files(t_pipex *pipex);
 
+// Handle_here_doc
+void	create_here_doc_file(t_pipex *pipex);
+void	handle_here_doc(t_pipex *pipex);
+
 //pipex
 void	process(t_pipex *pipex);
 void	get_cmd(t_pipex *pipex, char *cmd_arg);
-void	execution(t_pipex *pipex, int pos);
+void	execution(t_pipex *pipex);
 void	first_cmd(t_pipex *pipex);
 void	middle_cmd(t_pipex *pipex);
 void	last_cmd(t_pipex *pipex);
@@ -67,9 +75,11 @@ void	last_cmd(t_pipex *pipex);
 
 //utils
 void	init_struct(int argc, char **argv, char **envp, t_pipex *pipex);
+void	has_heredoc(t_pipex *pipex);
 char	*get_path(char **envp);
 char	*build_cmd(t_pipex *pipex, char *cmd);
 void	free_tab(char **tab);
+// char	*ft_join(char *s1, char const *s2);
 
 //error
 void	error(char *error_msg);
