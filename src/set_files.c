@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   handle_files.c                                     :+:      :+:    :+:   */
+/*   set_files.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lscarcel <lscarcel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 14:57:38 by lscarcel          #+#    #+#             */
-/*   Updated: 2024/07/17 10:30:36 by lscarcel         ###   ########.fr       */
+/*   Updated: 2024/07/23 11:46:17 by lscarcel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	set_files(t_pipex *pipex)
 {
 	infile_check(pipex);
 	open_files(pipex);
+	close(pipex->files.infile_fd);
 }
 
 void	infile_check(t_pipex *pipex)

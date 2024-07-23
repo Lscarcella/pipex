@@ -15,7 +15,7 @@
             "request": "launch",
             "name": "Debug",
             "program": "${workspaceFolder}/pipex",
-            "args": ["infile", "ls", "ls -la", "outfile"],
+            "args": ["infile", "grep Hello", "wc -l", "outfile"],
             "cwd": "${workspaceFolder}"
 			// set follow-fork-mode child
         }

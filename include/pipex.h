@@ -6,7 +6,7 @@
 /*   By: lscarcel <lscarcel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 08:37:51 by lscarcel          #+#    #+#             */
-/*   Updated: 2024/07/17 11:29:51 by lscarcel         ###   ########.fr       */
+/*   Updated: 2024/07/23 11:44:50 by lscarcel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ typedef	struct s_files
 {
 	int 	infile_fd;
 	int		outfile_fd;
-	char	*infile;
 }	t_files;
 
 typedef	struct s_data
@@ -59,7 +58,7 @@ void	open_files(t_pipex *pipex);
 //pipex
 void	process(t_pipex *pipex);
 void	get_cmd(t_pipex *pipex, char *cmd_arg);
-void	execution(t_pipex *pipex, int pos);
+void	execution(t_pipex *pipex);
 void	first_cmd(t_pipex *pipex);
 void	middle_cmd(t_pipex *pipex);
 void	last_cmd(t_pipex *pipex);
@@ -68,13 +67,12 @@ void	last_cmd(t_pipex *pipex);
 //utils
 void	init_struct(int argc, char **argv, char **envp, t_pipex *pipex);
 char	*get_path(char **envp);
-char	*build_cmd(t_pipex *pipex, char *cmd);
+void	build_cmd(t_pipex *pipex);
 void	free_tab(char **tab);
+void	free_for_all(t_pipex *pipex);
 
 //error
-void	error(char *error_msg);
-void	close_fd(t_pipex *pipex);
-
+void	error(char *error_msg, t_pipex *pipex);
 
 // Colors
 # define COLOR_BLACK "\033[0;30m" // Black

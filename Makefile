@@ -7,7 +7,7 @@ BONUS_DIR = ./src_bonus/
 LIBFT_DIR = ./libs/libft
 NAME = pipex
 NAME_BONUS = pipex_bonus
-SRC =  $(SRC_DIR)main.c $(SRC_DIR)errors.c $(SRC_DIR)set_files.c $(SRC_DIR)pipex.c $(SRC_DIR)utils.c
+SRC =  $(SRC_DIR)main.c $(SRC_DIR)errors_and_free.c $(SRC_DIR)set_files.c $(SRC_DIR)pipex.c $(SRC_DIR)utils.c
 BONUS_SRC = $(BONUS_DIR)main_bonus.c $(BONUS_DIR)errors_bonus.c $(BONUS_DIR)handle_files_bonus.c $(BONUS_DIR)pipex_bonus.c $(BONUS_DIR)handle_here_doc_bonus.c $(BONUS_DIR)utils_bonus.c
 
 # -- COLORS -- #
@@ -58,7 +58,7 @@ fclean: clean
 re: fclean all
 
 val: all
-	valgrind --leak-check=full --show-leak-kinds=all ./pipex infile "ls" "ls -la" outfe
+	valgrind --leak-check=full --show-leak-kinds=all --track-fds=yes --track-origins=yes --trace-children=yes ./pipex infile "grep "Hello"" "wc -l" outfile
 
 # indique que 'all', 'clean', 'fclean' et 're' ne sont pas des fichiers. #
 .PHONY: all bonus clean fclean re
