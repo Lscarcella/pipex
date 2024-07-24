@@ -58,7 +58,7 @@ fclean: clean
 re: fclean all
 
 val: all
-	valgrind --leak-check=full --show-leak-kinds=all --track-fds=yes --track-origins=yes --trace-children=yes ./pipex infile "grep "Hello"" "wc -l" outfile
+	valgrind --leak-check=full --show-leak-kinds=all --track-fds=yes --track-origins=yes --trace-children=yes ./pipex infile "ls" "wc" outfile
 
 # indique que 'all', 'clean', 'fclean' et 're' ne sont pas des fichiers. #
 .PHONY: all bonus clean fclean re

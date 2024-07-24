@@ -6,9 +6,10 @@
 /*   By: lscarcel <lscarcel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 08:37:51 by lscarcel          #+#    #+#             */
-/*   Updated: 2024/07/23 11:44:50 by lscarcel         ###   ########.fr       */
+/*   Updated: 2024/07/24 15:04:09 by lscarcel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #ifndef SO_LONG_H
 # include <stdlib.h>
@@ -23,13 +24,13 @@
 # define SUCCESS	0
 # define FAIL		1
 
-typedef	struct s_files
+typedef struct s_files
 {
-	int 	infile_fd;
+	int		infile_fd;
 	int		outfile_fd;
 }	t_files;
 
-typedef	struct s_data
+typedef struct s_data
 {
 	int		arg_pos;
 	int		cmd_nbr;
@@ -40,15 +41,14 @@ typedef	struct s_data
 	size_t	argv_len;
 }	t_data;
 
-typedef	struct s_pipex
+typedef struct s_pipex
 {
-	int 	argc;
+	int		argc;
 	char	**argv;
 	char	**envp;
 	t_files	files;
 	t_data	data;
 }	t_pipex;
-
 
 // Handle_files
 void	set_files(t_pipex *pipex);
@@ -63,7 +63,6 @@ void	first_cmd(t_pipex *pipex);
 void	middle_cmd(t_pipex *pipex);
 void	last_cmd(t_pipex *pipex);
 
-
 //utils
 void	init_struct(int argc, char **argv, char **envp, t_pipex *pipex);
 char	*get_path(char **envp);
@@ -73,7 +72,8 @@ void	free_for_all(t_pipex *pipex);
 
 //error
 void	error(char *error_msg, t_pipex *pipex);
-
+void	error_while_building(t_pipex *pipex);
+void	red_error(void);
 // Colors
 # define COLOR_BLACK "\033[0;30m" // Black
 # define COLOR_RED "\033[0;91m" // Red

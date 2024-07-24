@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   errors.c                                           :+:      :+:    :+:   */
+/*   errors_and_free.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lscarcel <lscarcel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 11:05:21 by lscarcel          #+#    #+#             */
-/*   Updated: 2024/07/23 13:58:59 by lscarcel         ###   ########.fr       */
+/*   Updated: 2024/07/24 14:34:36 by lscarcel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,24 @@
 
 void	error(char *error_msg, t_pipex *pipex)
 {
-	perror (error_msg);
+	red_error();
+	printf(" %s", error_msg);
 	free_for_all (pipex);
 	exit (EXIT_FAILURE);
+}
+
+void	red_error(void)
+{
+	printf(COLOR_RED "Error " COLOR_WHITE);
+}
+
+void	error_while_building(t_pipex *pipex)
+{
+	close(pipex->files.infile_fd);
+	close(pipex->files.outfile_fd);
+	printf(COLOR_RED "Error " COLOR_WHITE": Unvalid command\n" );
+	free_for_all(pipex);
+	exit(EXIT_FAILURE);
 }
 
 void	free_for_all(t_pipex *pipex)
@@ -38,7 +53,7 @@ void	free_tab(char **tab)
 	int	i;
 
 	i = 0;
-	while(tab[i])
+	while (tab[i])
 	{
 		free(tab[i]);
 		tab[i] = NULL;

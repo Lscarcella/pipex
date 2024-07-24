@@ -6,7 +6,7 @@
 /*   By: lscarcel <lscarcel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 08:39:09 by lscarcel          #+#    #+#             */
-/*   Updated: 2024/07/17 13:56:32 by lscarcel         ###   ########.fr       */
+/*   Updated: 2024/07/24 15:01:56 by lscarcel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,10 @@ int	main(int argc, char **argv, char **envp)
 	{
 		init_struct(argc, argv, envp, &pipex);
 		if (pipex.data.has_heredoc == TRUE)
-		handle_here_doc(&pipex);
+			handle_here_doc(&pipex);
 		set_files(&pipex);
 		process(&pipex);
+		free_for_all(&pipex);
 	}
 	else
 	{

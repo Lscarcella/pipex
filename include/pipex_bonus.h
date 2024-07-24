@@ -6,7 +6,7 @@
 /*   By: lscarcel <lscarcel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 10:35:47 by lscarcel          #+#    #+#             */
-/*   Updated: 2024/07/17 10:35:48 by lscarcel         ###   ########.fr       */
+/*   Updated: 2024/07/24 16:00:19 by lscarcel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,15 @@
 # define SUCCESS	0
 # define FAIL		1
 
-typedef	struct s_files
+typedef struct s_files
 {
-	int 	infile_fd;
+	int		infile_fd;
 	int		outfile_fd;
 	int		tmp_file;
 	char	*infile;
 }	t_files;
 
-typedef	struct s_data
+typedef struct s_data
 {
 	int		has_heredoc;
 	int		arg_pos;
@@ -45,15 +45,14 @@ typedef	struct s_data
 	size_t	argv_len;
 }	t_data;
 
-typedef	struct s_pipex
+typedef struct s_pipex
 {
-	int 	argc;
+	int		argc;
 	char	**argv;
 	char	**envp;
 	t_files	files;
 	t_data	data;
 }	t_pipex;
-
 
 // Handle_files
 void	set_files(t_pipex *pipex);
@@ -71,18 +70,23 @@ void	execution(t_pipex *pipex);
 void	first_cmd(t_pipex *pipex);
 void	middle_cmd(t_pipex *pipex);
 void	last_cmd(t_pipex *pipex);
+void	error(char *error_msg, t_pipex *pipex);
+void	red_error(void);
+void	error_while_building(t_pipex *pipex);
+void	free_tab(char **tab);
+void	free_for_all(t_pipex *pipex);
 
 
 //utils
 void	init_struct(int argc, char **argv, char **envp, t_pipex *pipex);
 void	has_heredoc(t_pipex *pipex);
 char	*get_path(char **envp);
-char	*build_cmd(t_pipex *pipex, char *cmd);
+void	build_cmd(t_pipex *pipex);
 void	free_tab(char **tab);
 // char	*ft_join(char *s1, char const *s2);
 
 //error
-void	error(char *error_msg);
+// void	error(char *error_msg);
 void	close_fd(t_pipex *pipex);
 
 
