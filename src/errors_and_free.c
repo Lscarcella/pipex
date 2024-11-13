@@ -6,11 +6,17 @@
 /*   By: lscarcel <lscarcel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 11:05:21 by lscarcel          #+#    #+#             */
-/*   Updated: 2024/07/24 14:34:36 by lscarcel         ###   ########.fr       */
+/*   Updated: 2024/07/25 15:56:40 by lscarcel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/pipex.h"
+
+void	error(char *error_msg, t_pipex *pipex);
+void	red_error(void);
+void	error_while_building(t_pipex *pipex);
+void	free_for_all(t_pipex *pipex);
+void	free_tab(char **tab);
 
 void	error(char *error_msg, t_pipex *pipex)
 {

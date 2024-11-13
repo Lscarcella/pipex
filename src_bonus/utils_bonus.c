@@ -6,11 +6,16 @@
 /*   By: lscarcel <lscarcel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 11:05:21 by lscarcel          #+#    #+#             */
-/*   Updated: 2024/07/24 16:00:03 by lscarcel         ###   ########.fr       */
+/*   Updated: 2024/07/25 15:53:13 by lscarcel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/pipex_bonus.h"
+
+void	init_struct(int argc, char **argv, char **envp, t_pipex *pipex);
+char	*get_path(char **envp);
+void	get_cmd(t_pipex *pipex, char *cmd_arg);
+void	build_cmd(t_pipex *pipex);
 
 void	init_struct(int argc, char **argv, char **envp, t_pipex *pipex)
 {
@@ -19,10 +24,8 @@ void	init_struct(int argc, char **argv, char **envp, t_pipex *pipex)
 	pipex->argc = argc;
 	pipex->argv = argv;
 	pipex->envp = envp;
-	has_heredoc(pipex);
-	pipex->data.cmd_nbr = (argc - 3) - pipex->data.has_heredoc;
-	pipex->data.pipe_nbr = 2 * (pipex->data.cmd_nbr - 1);
-	pipex->data.argv_len = ft_strlen(pipex->argv[2]);
+	pipex->data.cmd_nbr = (argc - 3);
+	pipex->data.arg_pos = 2;
 	pipex->data.env_path = get_path(envp);
 }
 

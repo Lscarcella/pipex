@@ -6,11 +6,15 @@
 /*   By: lscarcel <lscarcel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 14:57:38 by lscarcel          #+#    #+#             */
-/*   Updated: 2024/07/24 14:35:29 by lscarcel         ###   ########.fr       */
+/*   Updated: 2024/07/25 15:55:21 by lscarcel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/pipex.h"
+
+void	set_files(t_pipex *pipex);
+void	infile_check(t_pipex *pipex);
+void	open_files(t_pipex *pipex);
 
 void	set_files(t_pipex *pipex)
 {

@@ -8,7 +8,7 @@ LIBFT_DIR = ./libs/libft
 NAME = pipex
 NAME_BONUS = pipex_bonus
 SRC =  $(SRC_DIR)main.c $(SRC_DIR)errors_and_free.c $(SRC_DIR)set_files.c $(SRC_DIR)pipex.c $(SRC_DIR)utils.c
-BONUS_SRC = $(BONUS_DIR)main_bonus.c $(BONUS_DIR)errors_bonus.c $(BONUS_DIR)handle_files_bonus.c $(BONUS_DIR)pipex_bonus.c $(BONUS_DIR)handle_here_doc_bonus.c $(BONUS_DIR)utils_bonus.c
+BONUS_SRC = $(BONUS_DIR)main_bonus.c $(BONUS_DIR)errors_and_free_bonus.c $(BONUS_DIR)set_files_bonus.c $(BONUS_DIR)pipex_bonus.c $(BONUS_DIR)utils_bonus.c
 
 # -- COLORS -- #
 BLACK=\033[0;30m# Black
@@ -52,13 +52,19 @@ clean:
 fclean: clean
 	@$(MAKE) -C $(LIBFT_DIR) fclean
 	@$(RM) $(NAME)
+	@$(RM) $(NAME_BONUS)
 	@echo "$(CYAN)Library cleaned successfully. Library: $(NAME) $(WHITE)"
 	@echo "--------------------------------------------------------"
 
 re: fclean all
 
-val: all
-	valgrind --leak-check=full --show-leak-kinds=all --track-fds=yes --track-origins=yes --trace-children=yes ./pipex infile "ls" "wc" outfile
+re_bonus : fclean bonus
+
+# val: all
+# 	valgrind --leak-check=full --show-leak-kinds=all --track-fds=yes --track-origins=yes --trace-children=yes ./pipex infile "pwd" "grep Hello" "wc" outfile
+
+# val_bonus: bonus
+# 	valgrind --leak-check=full --show-leak-kinds=all --track-fds=yes --track-origins=yes --trace-children=yes ./pipex_bonus infile "pwd" "wc" "cat" outfile
 
 # indique que 'all', 'clean', 'fclean' et 're' ne sont pas des fichiers. #
 .PHONY: all bonus clean fclean re

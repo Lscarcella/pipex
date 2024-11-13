@@ -6,11 +6,16 @@
 /*   By: lscarcel <lscarcel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 11:05:21 by lscarcel          #+#    #+#             */
-/*   Updated: 2024/07/24 14:35:14 by lscarcel         ###   ########.fr       */
+/*   Updated: 2024/07/25 15:55:07 by lscarcel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/pipex.h"
+
+void	init_struct(int argc, char **argv, char **envp, t_pipex *pipex);
+char	*get_path(char **envp);
+void	get_cmd(t_pipex *pipex, char *cmd_arg);
+void	build_cmd(t_pipex *pipex);
 
 void	init_struct(int argc, char **argv, char **envp, t_pipex *pipex)
 {

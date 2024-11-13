@@ -6,11 +6,16 @@
 /*   By: lscarcel <lscarcel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 11:05:21 by lscarcel          #+#    #+#             */
-/*   Updated: 2024/07/24 14:33:47 by lscarcel         ###   ########.fr       */
+/*   Updated: 2024/07/25 15:55:45 by lscarcel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/pipex.h"
+
+void	process(t_pipex *pipex);
+void	first_cmd(t_pipex *pipex);
+void	last_cmd(t_pipex *pipex);
+void	execution(t_pipex *pipex);
 
 void	process(t_pipex *pipex)
 {
@@ -24,9 +29,9 @@ void	first_cmd(t_pipex *pipex)
 	pid_t	pid;
 	int		pipe_fd[2];
 
+	get_cmd(pipex, pipex->argv[2]);
 	if (pipe(pipe_fd) == -1)
 		error("pipe", pipex);
-	get_cmd(pipex, pipex->argv[2]);
 	pid = fork();
 	if (pid == -1)
 		error("fork error", pipex);
@@ -52,9 +57,9 @@ void	last_cmd(t_pipex *pipex)
 	int		pipe_fd[2];
 	pid_t	pid;
 
+	get_cmd(pipex, pipex->argv[3]);
 	if (pipe(pipe_fd) == -1)
 		error("pipe", pipex);
-	get_cmd(pipex, pipex->argv[3]);
 	pid = fork();
 	if (pid == 0)
 	{

@@ -6,17 +6,18 @@
 /*   By: lscarcel <lscarcel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 08:37:51 by lscarcel          #+#    #+#             */
-/*   Updated: 2024/07/24 15:04:09 by lscarcel         ###   ########.fr       */
+/*   Updated: 2024/07/25 15:11:23 by lscarcel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#ifndef PIPEX_H
 
-#ifndef SO_LONG_H
+//libairies
 # include <stdlib.h>
 # include "../libs/libft/libft.h"
-#include <sys/wait.h>
+# include <sys/wait.h>
 
-# define SO_LONG_H
+# define PIPEX_H
 # define WIDTH		256
 # define HEIGHT		256
 # define TRUE		1
@@ -74,6 +75,7 @@ void	free_for_all(t_pipex *pipex);
 void	error(char *error_msg, t_pipex *pipex);
 void	error_while_building(t_pipex *pipex);
 void	red_error(void);
+
 // Colors
 # define COLOR_BLACK "\033[0;30m" // Black
 # define COLOR_RED "\033[0;91m" // Red
@@ -86,4 +88,4 @@ void	red_error(void);
 # define TEXT_BOLD "\033[1m" // Bold text
 # define TEXT_RESET "\033[0m" // Reset text attributes
 
-#endif 
+#endif

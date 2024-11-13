@@ -6,7 +6,7 @@
 /*   By: lscarcel <lscarcel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 08:39:09 by lscarcel          #+#    #+#             */
-/*   Updated: 2024/07/24 15:01:56 by lscarcel         ###   ########.fr       */
+/*   Updated: 2024/07/26 10:59:27 by lscarcel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,13 @@ int	main(int argc, char **argv, char **envp)
 	if (argc > 4)
 	{
 		init_struct(argc, argv, envp, &pipex);
-		if (pipex.data.has_heredoc == TRUE)
-			handle_here_doc(&pipex);
 		set_files(&pipex);
 		process(&pipex);
 		free_for_all(&pipex);
 	}
 	else
 	{
-		printf("Error\nWrong argument number\n");
+		printf(COLOR_RED "Error " COLOR_WHITE": wrong argument number\n" );
 		return (0);
 	}
 }

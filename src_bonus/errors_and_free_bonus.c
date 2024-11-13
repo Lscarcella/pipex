@@ -1,18 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   errors_bonus.c                                     :+:      :+:    :+:   */
+/*   errors_and_free_bonus.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lscarcel <lscarcel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 11:05:21 by lscarcel          #+#    #+#             */
-/*   Updated: 2024/07/24 14:40:53 by lscarcel         ###   ########.fr       */
+/*   Updated: 2024/07/26 10:57:45 by lscarcel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/pipex_bonus.h"
 
-void	error(char *error_msg, t_pipex *pipex)
+void	errors_and_free(char *error_msg, t_pipex *pipex);
+void	red_error(void);
+void	error_while_building(t_pipex *pipex);
+void	free_tab(char **tab);
+void	free_for_all(t_pipex *pipex);
+
+void	errors_and_free(char *error_msg, t_pipex *pipex)
 {
 	red_error();
 	printf(" %s", error_msg);
